@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Лазне‑пральний комплекс — мобільний контейнер</title>
+  <meta name="description" content="Лазне‑пральний комплекс на базі 20‑футового контейнера для польових умов. Замовлення та консультація по телефону." />
+
+  <!-- ШРИФТИ + ІКОНКИ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --container: 1200px;
+      --accent: #ff4a4a;
+      --blue: #0A3D91;
+      --text: #0b1230;
+      --muted: #5f6b85;
+      --bg: #ffffff;
+      --line: #e5eaf1;
+      --card: #f6f8fc;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(10,61,145,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    .container{width:100%;max-width:var(--container);margin:0 auto;padding:0 20px}
+
+    /* HEADER */
+    header{position:sticky;top:0;z-index:50;background:#000;color:#fff;border-bottom:1px solid #111}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{font-weight:800;letter-spacing:.3px}
+    nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+    nav a{padding:10px 12px;border-radius:10px;color:#fff;opacity:.9}
+    nav a:hover{opacity:1;background:rgba(255,255,255,.06)}
+    .phone{font-weight:700;color:#fff}
+    /* Burger */
+    .burger{display:none;gap:8px;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #222;background:#111;color:#fff}
+    .burger i{font-size:22px}
+
+    /* Mobile menu */
+    .mobile-panel{position:fixed;inset:0 0 0 auto;width:78vw;max-width:360px;background:#0b0b0b;color:#fff;transform:translateX(100%);transition:transform .25s;z-index:60;border-left:1px solid #151515;display:flex;flex-direction:column}
+    .mobile-panel header{position:unset;border:0;background:#0b0b0b}
+    .mobile-panel .list{display:flex;flex-direction:column;padding:14px}
+    .mobile-panel .list a{color:#fff;padding:12px 14px;border-radius:10px}
+    .mobile-panel .list a:hover{background:#151515}
+    .scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:saturate(120%) blur(1px);display:none;z-index:55}
+    body.menu-open .mobile-panel{transform:translateX(0)}
+    body.menu-open .scrim{display:block}
+
+    /* HERO */
+    .hero{position:relative;display:flex;align-items:center;min-height:720px;padding:80px 0;background:
+      radial-gradient(1200px 620px at 80% -10%, rgba(25,76,177,.12), transparent 70%),
+      linear-gradient(180deg,#ffffff,#ffffff)}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+    .eyebrow{color:#b8c0cc;margin-bottom:8px}
+    h1{font-size:46px;line-height:1.08;margin:0 0 14px;color:#fff}
+    .lead{font-size:18px;color:#c8cfdb;margin:0 0 26px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:30px;background:var(--accent);color:#fff;font-weight:800;box-shadow:var(--shadow)}
+    .btn:hover{filter:brightness(.95)}
+    .hero-card{background:#111;border:1px solid #1a1a1a;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+
+    /* СЕКЦІЇ */
+    section{padding:70px 0}
+    .h2{font-size:34px;margin:0 0 14px}
+    .sub{color:var(--muted);margin:0 0 26px}
+
+    /* Комплектація */
+    .specs{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+    .specs li{background:var(--card);padding:12px 14px;border-radius:12px;border:1px solid var(--line)}
+
+    /* Опис конструкції */
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+
+    /* Переваги */
+    .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .benefit{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+    .benefit h3{margin:0 0 8px;font-size:18px}
+    .benefit p{margin:0;color:var(--muted)}
+
+    /* КАРТОЧКА ТОВАРУ */
+    .product .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+    .product .media{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .product .media .main{border-radius:12px;overflow:hidden}
+    .product .thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+    .product .thumbs img{border:1px solid var(--line);border-radius:10px;cursor:pointer}
+    .product .info{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    .price-box{display:flex;align-items:center;gap:14px;margin:10px 0 18px}
+    .price{font-size:28px;font-weight:800}
+    .badge{display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:30px;background:#0A3D91;color:#fff;font-weight:700;font-size:13px}
+    .list{margin:0;padding-left:18px;color:var(--muted)}
+
+    /* ГАЛЕРЕЯ */
+    .gallery{padding:24px 0;background:#000}
+    .gallery h2,.gallery .sub{color:#fff}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .gallery-grid a{display:block;border-radius:4px;overflow:hidden;border:1px solid #111}
+    .gallery-grid img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+
+    /* КОНТАКТИ (великі, з іконками) */
+    .contact-big{background:#0a0a0a;color:#fff;padding:70px 0}
+    .contact-big .title{font-size:34px;margin:0 0 12px;text-align:center}
+    .contact-big .lead{color:#b8c0cc;text-align:center;margin:0 0 26px}
+    .contact-cards{display:flex;flex-wrap:wrap;gap:24px;justify-content:center}
+    .contact-card.big{background:#101010;border:1px solid #1c1c1c;border-radius:18px;padding:22px 26px;min-width:280px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .social-row{display:flex;gap:18px;align-items:center;justify-content:center;margin-top:10px}
+    .social-row a{width:48px;height:48px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;background:#161616;border:1px solid #242424;color:#fff;font-size:24px;transition:.2s}
+    .social-row a:hover{transform:translateY(-1px);filter:brightness(1.1)}
+
+    footer{padding:30px 0;border-top:1px solid var(--line);color:#9aa3b2;background:#000}
+
+    /* Адаптив */
+    @media (max-width: 1000px){
+      .hero-grid{grid-template-columns:1fr}
+      .specs{grid-template-columns:1fr}
+      .benefits{grid-template-columns:1fr 1fr}
+      .product .product-grid{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr} /* Загальний опис вертикально */
+    }
+    @media (max-width: 700px){
+      /* show burger */
+      .burger{display:flex}
+      nav ul{display:none}
+    }
+    @media (max-width: 560px){
+      h1{font-size:30px}
+      .benefits{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* Лайтбокс */
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:40}
+    #lightbox img{max-width:94vw;max-height:90vh;border-radius:10px}
+    #lightbox.closezone{cursor:zoom-out}
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <div class="brand">Комплекс</div>
+      <nav>
+        <ul>
+          <li><a href="#about">Про нас</a></li>
+          <li><a href="#gallery">Продукція</a></li>
+          <li><a href="#contacts">Контакти</a></li>
+        </ul>
+      </nav>
+      <a class="phone" href="tel:+380665285252">+38 (066) 528‑52‑52</a>
+      <button class="burger" id="burger" aria-label="Меню"><i class="bi bi-list"></i></button>
+    </div>
+  </header>
+
+  <!-- Mobile panel -->
+  <div class="mobile-panel" id="mPanel" aria-hidden="true">
+    <header class="container nav" style="height:56px">
+      <div style="font-weight:800">Меню</div>
+      <button class="burger" id="closePanel" aria-label="Закрити"><i class="bi bi-x-lg"></i></button>
+    </header>
+    <div class="list">
+      <a href="#about">Про нас</a>
+      <a href="#gallery">Продукція</a>
+      <a href="#contacts">Контакти</a>
+      <a href="tel:+380665285252" class="phone" style="margin-top:8px">📞 +38 (066) 528‑52‑52</a>
+    </div>
+  </div>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow" style="color:#000">Лазне‑пральний комплекс</div>
+        <h1 style="color:#000">На базі морського контейнера 20 фут</h1>
+        <p class="lead" style="color:#000">Для забезпечення миття особового складу і прання речей у відриві від пунктів постійної дислокації.</p>
+        <a class="btn" href="#contacts">Зв’язатися</a>
+      </div>
+      <div class="hero-card" aria-hidden="true">
+        <img src="assets/5.jpg" alt="Фото мобільного комплексу" />
+      </div>
+    </div>
+  </section>
+
+  <!-- КАРТОЧКА ТОВАРУ -->
+  <section class="product" id="card">
+    <div class="container">
+      <h2 class="h2">Мобільний лазне‑пральний комплекс</h2>
+      <p class="sub">Базова комплектація на базі 20‑футового контейнера</p>
+      <div class="product-grid">
+        <div class="media">
+          <div class="main">
+            <img id="mainPhoto" src="assets/1.jpg" alt="Контейнер — головне фото" />
+          </div>
+          <div class="thumbs" id="thumbs">
+            <img src="assets/1.jpg" alt="Фото 1" data-big="assets/1.jpg" />
+            <img src="assets/17.jpg" alt="Фото 2" data-big="assets/17.jpg" />
+            <img src="assets/3.jpg" alt="Фото 3" data-big="assets/3.jpg" />
+            <img src="assets/4.jpg" alt="Фото 4" data-big="assets/4.jpg" />
+            <img src="assets/5.jpg" alt="Фото 5" data-big="assets/5.jpg" />
+            <img src="assets/6.jpg" alt="Фото 5" data-big="assets/6.jpg" />
+            <img src="assets/14.jpg" alt="Фото 5"data-big="assets/14.jpg" />
+            <img src="assets/8.jpg" alt="Фото 5" data-big="assets/8.jpg" />
+            <img src="assets/9.jpg" alt="Фото 5" data-big="assets/9.jpg" />
+            <img src="assets/10.jpg" alt="Фото 5" data-big="assets/10.jpg" />
+            <img src="assets/11.jpg" alt="Фото 5" data-big="assets/11.jpg" />
+            <img src="assets/12.jpg" alt="Фото 5" data-big="assets/12.jpg" />
+          </div>
+        </div>
+        <div class="info">
+          <div class="badge">в наявності / під замовлення</div>
+          <div class="price-box">
+            <div class="price">Ціна за запитом</div>
+          </div>
+          <p class="sub">Виготовлення, доставка та запуск під ключ. Гарантія на обладнання — 5 років (для пральних та сушильних машин).</p>
+          <ul class="list">
+            <li>Контейнер 20 футів, утеплення 100&nbsp;мм (стіни/стеля/підлога)</li>
+            <li>Пральні та сушильні машини по 8&nbsp;кг (2+2)</li>
+            <li>Душовий відсік на 4 пости з роздягальнею</li>
+            <li>Бойлер 150&nbsp;л, насосна станція, бак 1000&nbsp;л</li>
+            <li>Опалення: твердопаливний котел та конвектори</li>
+          </ul>
+          <div style="margin-top:18px">
+            <a class="btn" href="#contacts">Замовити консультацію</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОМПЛЕКТАЦІЯ -->
+  <section id="product">
+    <div class="container">
+      <h2 class="h2">Комплектація</h2>
+      <p class="sub">Що входить до складу мобільного комплексу:</p>
+      <ol class="specs">
+        <li>Мийка прямокутна накладна 500×500 з нержавіючої сталі — 1&nbsp;шт.</li>
+        <li>Дзеркало — 2&nbsp;шт.</li>
+        <li>Бак для води на 1000&nbsp;л (пластиковий) — 1&nbsp;шт.</li>
+        <li>Насосна станція для води — 1&nbsp;шт.</li>
+        <li>Дров’яний котел‑буржуйка 200&nbsp;л — 1&nbsp;шт.</li>
+        <li>Планка з гачками для одягу — 2&nbsp;компл.</li>
+        <li>Лавка для перевдягання — 1&nbsp;шт.</li>
+        <li>Бойлер на 150&nbsp;л — 1&nbsp;шт.</li>
+        <li>Кутові полички для рушників — 4&nbsp;шт.</li>
+        <li>Пральна машина на 8&nbsp;кг (гарантія 5&nbsp;р.) — 2&nbsp;шт.</li>
+        <li>Сушильна машина на 8&nbsp;кг (гарантія 5&nbsp;р.) — 2&nbsp;шт.</li>
+        <li>Електроконвектор 0,5&nbsp;кВт — 2&nbsp;шт.</li>
+        <li>Бензопила ланцюгова 3100&nbsp;Вт — 1&nbsp;шт.</li>
+        <li>Вогнегасник ВВК‑3,5 на кронштейні — 1&nbsp;шт.</li>
+        <li>Генератор 8,5&nbsp;кВт — 1&nbsp;шт.</li>
+        <li>Каністра 20&nbsp;л — 1&nbsp;шт.</li>
+        <li>Сокира універсальна — 1&nbsp;шт.</li>
+        <li>Саперна лопата — 1&nbsp;шт.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ОПИС КОНСТРУКЦІЇ -->
+  <section id="about">
+    <div class="container grid-2">
+      <div class="card">
+        <h2 class="h2">Загальний опис</h2>
+        <p>Конструкція пересувного мобільного комплексу (ПМК) виконана на базі 20‑футового морського контейнера 6050×2430×2590&nbsp;мм. Передбачена можливість експлуатації стаціонарно «з землі» або на автомобільному причепі.</p>
+        <p>Контейнер утеплений по стінах, стелі та підлозі фольгоізолоном з полістиролом товщиною 100&nbsp;мм, зовнішня обшивка — оцинкований лист 0,45&nbsp;мм з полімерним покриттям.</p>
+      </div>
+      <div class="card">
+        <h3 class="h2" style="font-size:22px">Планування приміщень</h3>
+        <ul>
+          <li>Технічне приміщення (окремий вхід, доступ до твердопаливного котла).</li>
+          <li>Пральне приміщення (окремий вхід; обладнання згідно комплектації).</li>
+          <li>Душове приміщення з роздягальнею (4&nbsp;душові, піддони, шторки, трап 160×160×60&nbsp;мм).</li>
+        </ul>
+        <p>Електроживлення — від автономного генератора 8–8,5&nbsp;кВт або зовнішньої мережі через перекидний рубильник. Передбачене заземлення на раму.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПЕРЕВАГИ -->
+  <section>
+    <div class="container">
+      <h2 class="h2">Переваги мобільного банно‑прального комплексу</h2>
+      <p class="sub">Ідеальне рішення для гігієни в польових умовах</p>
+      <div class="benefits">
+        <div class="benefit"><h3>В полі</h3><p>Миття та прання без прив’язки до стаціонару.</p></div>
+        <div class="benefit"><h3>Зручно</h3><p>Оптимізовані процеси, компактний дизайн.</p></div>
+        <div class="benefit"><h3>Чисто</h3><p>Сучасне обладнання та безпечні засоби.</p></div>
+        <div class="benefit"><h3>Економно</h3><p>Розумне споживання води й енергії.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГАЛЕРЕЯ ФОТО -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <h2 class="h2">Галерея</h2>
+      <p class="sub">20 фотографій комплексу</p>
+      <div class="gallery-grid" id="gal">
+        <a href="assets/1.jpg"><img src="assets/1.jpg" alt="Фото 1" loading="lazy"/></a>
+        <a href="assets/2.jpg"><img src="assets/2.jpg" alt="Фото 2" loading="lazy"/></a>
+        <a href="assets/3.jpg"><img src="assets/3.jpg" alt="Фото 3" loading="lazy"/></a>
+        <a href="assets/4.jpg"><img src="assets/4.jpg" alt="Фото 4" loading="lazy"/></a>
+        <a href="assets/5.jpg"><img src="assets/5.jpg" alt="Фото 5" loading="lazy"/></a>
+        <a href="assets/6.jpg"><img src="assets/6.jpg" alt="Фото 6" loading="lazy"/></a>
+        <a href="assets/25.jpg"><img src="assets/25.jpg" alt="Фото 7" loading="lazy"/></a>
+        <a href="assets/8.jpg"><img src="assets/8.jpg" alt="Фото 8" loading="lazy"/></a>
+        <a href="assets/9.jpg"><img src="assets/9.jpg" alt="Фото 9" loading="lazy"/></a>
+        <a href="assets/10.jpg"><img src="assets/10.jpg" alt="Фото 10" loading="lazy"/></a>
+        <a href="assets/11.jpg"><img src="assets/11.jpg" alt="Фото 11" loading="lazy"/></a>
+        <a href="assets/12.jpg"><img src="assets/12.jpg" alt="Фото 12" loading="lazy"/></a>
+        <a href="assets/13.jpg"><img src="assets/13.jpg" alt="Фото 13" loading="lazy"/></a>
+        <a href="assets/14.jpg"><img src="assets/14.jpg" alt="Фото 14" loading="lazy"/></a>
+        <a href="assets/15.jpg"><img src="assets/15.jpg" alt="Фото 15" loading="lazy"/></a>
+        <a href="assets/16.jpg"><img src="assets/16.jpg" alt="Фото 16" loading="lazy"/></a>
+        <a href="assets/17.jpg"><img src="assets/17.jpg" alt="Фото 17" loading="lazy"/></a>
+        <a href="assets/18.jpg"><img src="assets/18.jpg" alt="Фото 18" loading="lazy"/></a>
+        <a href="assets/19.jpg"><img src="assets/19.jpg" alt="Фото 19" loading="lazy"/></a>
+        <a href="assets/20.jpg"><img src="assets/20.jpg" alt="Фото 20" loading="lazy"/></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНТАКТИ ВЕЛИКІ (з іконками) -->
+  <section class="contact-big" id="contacts">
+    <div class="container">
+      <h2 class="title">Зв’язатися з нами</h2>
+      <p class="lead">Телефонуйте або пишіть у зручний месенджер</p>
+      <div class="contact-cards">
+        <div class="contact-card big" style="text-align:center">
+          <div class="title" style="font-size:18px;margin-bottom:8px">Телефон</div>
+          <a href="tel:+380665285252" class="btn" style="display:inline-flex;align-items:center;gap:10px;background:#1b1b1b;border:1px solid #272727;border-radius:12px;padding:12px 16px;color:#fff"><i class="bi bi-telephone"></i> +38 (066) 528‑52‑52</a>
+        </div>
+        <div class="contact-card big" style="text-align:center">
+          <div class="title" style="font-size:18px;margin-bottom:8px">Месенджери</div>
+          <div class="social-row">
+            <a href="https://t.me/380665285252" target="_blank" rel="noopener" title="Telegram" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
+            <a href="https://wa.me/380665285252" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+            <a href="viber://chat?number=380665285252" target="_blank" title="Viber" aria-label="Viber"><i class="bi bi-chat-dots"></i></a>
+            <!-- за потреби: <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a> <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="y"></span> Лазне‑пральний комплекс. Усі права захищено.</div>
+  </footer>
+
+  <!-- simple lightbox -->
+  <div id="lightbox" class="closezone"><img alt="" /></div>
+
+  <script>
+    // Рік у футері
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // Плавний скролл
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        if(id.length>1){ e.preventDefault(); document.querySelector(id).scrollIntoView({behavior:'smooth'}); document.body.classList.remove('menu-open'); }
+      });
+    });
+
+    // Burger menu
+    const burger = document.getElementById('burger');
+    const closePanel = document.getElementById('closePanel');
+    const scrim = document.getElementById('scrim');
+    ;[burger, closePanel, scrim].forEach(el=> el && el.addEventListener('click', ()=>{
+      document.body.classList.toggle('menu-open');
+    }));
+
+    // Переключение фото в карточке товара
+    const main = document.getElementById('mainPhoto');
+    const thumbs = document.getElementById('thumbs');
+    if (thumbs && main) {
+      thumbs.addEventListener('click', (e)=>{
+        const t = e.target;
+        if (t.tagName === 'IMG' && t.dataset.big) {
+          main.src = t.dataset.big;
+          main.alt = t.alt || 'Фото';
+        }
+      });
+      main.addEventListener('click', ()=> openLightbox(main.src));
+    }
+
+    // Лайтбокс
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = lightbox.querySelector('img');
+    function openLightbox(src){ lbImg.src = src; lightbox.style.display='flex'; }
+    lightbox.addEventListener('click', ()=>{ lightbox.style.display='none'; lbImg.src=''; });
+
+    const gal = document.getElementById('gal');
+    if (gal){
+      gal.addEventListener('click', (e)=>{
+        const a = e.target.closest('a');
+        if(a){ e.preventDefault(); openLightbox(a.getAttribute('href')); }
+      });
+    }
+  </script>
+</body>
+</html>
